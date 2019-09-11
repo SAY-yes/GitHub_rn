@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component,Fragment } from 'react';
 import {
 	SafeAreaView,
@@ -16,11 +8,11 @@ import {
 	StatusBar,
 } from 'react-native';
 
-export default class DetailPage extends Component {
+export default class FavoritePage extends Component {
 	render(){
 		return (
 			<View style={styles.container}>
-				<Text>DetailPage123</Text>
+				<Text>FavoritePage</Text>
 			</View>
 		);
 	}

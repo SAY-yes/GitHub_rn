@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component,Fragment } from 'react';
 import {
 	SafeAreaView,
@@ -15,12 +7,14 @@ import {
 	Text,
 	StatusBar,
 } from 'react-native';
+import NavigatorUtil from '../navigator/NavigatorUtil'
 
 export default class WelcomePage extends Component {
 	componentDidMount(){
 		this.timer = setTimeout(() => {
-			const {navigation} = this.props
-			navigation.navigate('Main')
+			NavigatorUtil.resetToHomePage({
+				navigation:this.props.navigation
+			})
 		}, 2000);
 	}
 	componentWillUnmount(){

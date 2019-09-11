@@ -1,3 +1,4 @@
+import React from 'react'
 import {
 	createSwitchNavigator,
 	createAppContainer
@@ -5,10 +6,9 @@ import {
 import {
 	createStackNavigator
 } from 'react-navigation-stack'
-// import {
-// 	createBottomTabNavigator,
-// 	createMaterialTopTabNavigator
-// } from 'react-navigation-tabs'
+import {
+	createBottomTabNavigator
+} from 'react-navigation-tabs'
 import WelcomePage from '../pages/WelcomePage'
 import HomePage from '../pages/HomePage'
 import DetailPage from '../pages/DetailPage'
@@ -24,16 +24,13 @@ const InitNavigator = createStackNavigator({
 
 const MainNavigator = createStackNavigator({
 	HomePage: {
-		screen: HomePage,
+		screen: HomePage(),
 		navigationOptions: {
 			header: null
 		}
 	},
 	DetailPage: {
-		screen: DetailPage,
-		navigationOptions: {
-			header: null
-		}
+		screen: DetailPage
 	}
 })
 
