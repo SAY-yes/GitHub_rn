@@ -5,7 +5,7 @@ import {
 	ScrollView,
 	View,
 	Text,
-	StatusBar,
+	Button,
 } from 'react-native';
 
 export default class TrendingPage extends Component {
@@ -13,6 +13,17 @@ export default class TrendingPage extends Component {
 		return (
 			<View style={styles.container}>
 				<Text>TrendingPage</Text>
+				<Button 
+					title="改变主题色"
+					onPress={()=>{
+						this.props.navigation.setParams({
+							theme:{
+								tintColor:'red',
+								update: new Date().getTime()
+							}
+						})
+					}}
+				/>
 			</View>
 		);
 	}
