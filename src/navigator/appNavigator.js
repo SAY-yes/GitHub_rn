@@ -10,7 +10,8 @@ import {
 	createBottomTabNavigator
 } from 'react-navigation-tabs'
 import WelcomePage from '../pages/WelcomePage'
-import HomePage from '../pages/HomePage'
+// import HomePage from '../pages/HomePage'
+import DynamicBottomTabNavigator from './DynamicBottomTabNavigator'
 import DetailPage from '../pages/DetailPage'
 
 const InitNavigator = createStackNavigator({
@@ -24,7 +25,7 @@ const InitNavigator = createStackNavigator({
 
 const MainNavigator = createStackNavigator({
 	HomePage: {
-		screen: HomePage(),
+		screen: DynamicBottomTabNavigator(),
 		navigationOptions: {
 			header: null
 		}
