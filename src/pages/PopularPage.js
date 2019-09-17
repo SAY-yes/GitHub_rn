@@ -10,34 +10,45 @@ import {
 } from 'react-native';
 import NavigatorUtil from '../navigator/NavigatorUtil'
 class PopularTab extends Component {
+	constructor(props){
+		super(props);
+	}
 	render(){
-		// alert(JSON.stringify(this.props))
 		return (
 			<View style={styles.container}>
-				<Text>PopularTab</Text>
+				<Text>{this.props.tabLabel}</Text>
 				<Text onPress={() => NavigatorUtil.goPage('DetailPage',{navigation:this.props.navigation})}>跳转到详情页</Text>
 			</View>
 		);
 	}
 }
 
-export default PopularPage  = () => {
-	return createMaterialTopTabNavigator({
-		PopularTab1: {
-			screen: PopularTab,
-			navigationOptions: {
-				title: 'Tab1'
+export default PopularPage  = (props) => {
+	const tabNames = ['Java', 'Android', 'IOS', 'React', 'ReactNative', 'PHP']
+	const getTabs = () => {
+		const tabs = {}
+		tabNames.forEach((ele,index) => {
+			tabs[`tab${index}`] = {
+				screen: (props) => <PopularTab {...props} tabLabel={ele}/>,
+				navigationOptions:{
+					title:ele
+				}
 			}
-		},
-		PopularTab2: {
-			screen: PopularTab,
-			navigationOptions: {
-				title: 'Tab2'
-			}
-		}
-	},{
+		})
+		console.log('tabs', tabs)
+		return tabs
+	}
+	
+	return createMaterialTopTabNavigator(getTabs(),{
 			tabBarOptions: {
-			tabStyle: { marginTop: Platform.OS=='ios'?30:0 }
+				tabStyle: styles.tabStyle,
+				upperCaseLabel:false,    // 是否使标签大写，默认true
+				scrollEnabled:true,     // 是否支持选项卡滚动，默认false
+				style:{
+					backgroundColor:'#678'   // tabBar的背景色
+				},
+			indicatorStyle: styles.indicatorStyle,     // 标签指示器的样式
+			labelStyle: styles.labelStyle,     // 文字的样式
 			}
 	})
 }
@@ -47,5 +58,16 @@ const styles = StyleSheet.create({
 		justifyContent:'center',
 		alignItems:'center',
 		backgroundColor:'#fcfcfc'
+	},
+	tabStyle: { 
+		marginTop: Platform.OS == 'ios' ? 30 : 0,
+		minWidth:50
+	},
+	indicatorStyle:{
+		height:1,
+		backgroundColor:'white'
+	},
+	labelStyle:{
+		fontSize:13
 	}
 });
