@@ -9,6 +9,8 @@ import {
 import {
 	createBottomTabNavigator
 } from 'react-navigation-tabs'
+import {connect} from 'react-redux'
+import { createReactNavigationReduxMiddleware, createReduxContainer} from 'react-navigation-redux-helpers'
 import WelcomePage from '../pages/WelcomePage'
 // import HomePage from '../pages/HomePage'
 import DynamicBottomTabNavigator from './DynamicBottomTabNavigator'
@@ -35,7 +37,7 @@ const MainNavigator = createStackNavigator({
 	}
 })
 
-const switchNavigator = createSwitchNavigator({
+export const switchNavigator = createSwitchNavigator({
 	Init: InitNavigator,
 	Main: MainNavigator
 },{
@@ -44,5 +46,16 @@ const switchNavigator = createSwitchNavigator({
 			header: null
 		}
 })
+export const rootCom = 'Init'  //设置根路由
 
-export default createAppContainer(switchNavigator)
+export const middleware = createReactNavigationReduxMiddleware(
+	state => state.nav,
+	'reduxMiddleware'
+);
+const navigatorReduxContainer = createReduxContainer(switchNavigator,'reduxMiddleware');
+const mapStateToProps = (state) => ({
+	state: state.nav,
+});
+const AppWithNavigationState = connect(mapStateToProps)(navigatorReduxContainer);
+
+export default createAppContainer(AppWithNavigationState)

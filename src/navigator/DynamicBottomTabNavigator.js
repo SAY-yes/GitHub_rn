@@ -7,6 +7,7 @@ import MyPage from '../pages/MyPage'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
+import { connect } from 'react-redux';
 const BottomTabs = {
 	PopularPage: {
 		screen: PopularPage(),
@@ -45,7 +46,7 @@ const BottomTabs = {
 		}
 	}
 }
-export default DynamicTabNavigator = () => {
+const DynamicTabNavigator = () => {
 	const { PopularPage, TrendingPage, FavoritePage, MyPage } = BottomTabs
 	// PopularPage.navigationOptions.tabBarLabel = '最新'  // 动态配置tab属性
 	const tabs = { PopularPage, TrendingPage, FavoritePage, MyPage}
@@ -53,36 +54,35 @@ export default DynamicTabNavigator = () => {
 		tabBarOptions:{
 			activeTintColor:'green'
 		},
-		tabBarComponent: props => (   //自定义底部导航
-			<TabBarComponent 
-				{...props} 
-				style={{ borderTopColor: '#605F60' }} 
-			/>
-		),
+		tabBarComponent: props => {
+			console.log('tabBarComponent',props)
+			return (   //自定义底部导航
+				<TabBarComponentCon
+					{...props}
+					style={{ borderTopColor: '#605F60' }}
+				/>
+			)
+		},
 	})
 }
+export default DynamicTabNavigator
 
 class TabBarComponent extends Component{
 	constructor(props){
 		super(props);
-		this.theme = {
-			tintColor:props.activeTintColor,
-			update:new Date().getTime()
-		}
 	}
 	
 	render(){
-		const {routes,index} = this.props.navigation.state
-		if(routes[index].params){
-			const { theme } = routes[index].params
-			// 以最新的更新时间为主，防止被其他tab之前的修改覆盖掉
-			if(theme&&theme.update>this.theme.update){
-				this.theme = theme
-			}
-		}
 		return <BottomTabBar
 			{...this.props}
-			activeTintColor={this.theme.tintColor||this.props.activeTintColor}
+			activeTintColor={this.props.theme}
 		/>
 	}
 }
+const mapStateToProps = state => {
+	console.log('state',state)
+	return ({
+		theme: state.themeReducer.theme
+	})
+}
+const TabBarComponentCon = connect(mapStateToProps)(TabBarComponent)
