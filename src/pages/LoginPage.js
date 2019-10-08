@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import NavigatorUtil from '../navigator/NavigatorUtil'
 
-export default class WelcomePage extends Component {
+export default class LoginPage extends Component {
 	componentDidMount(){
 		this.timer = setTimeout(() => {
 			NavigatorUtil.resetToHomePage({
@@ -23,7 +23,7 @@ export default class WelcomePage extends Component {
 	render(){
 		return (
 			<View style={styles.container}>
-				<Text>welcomePage</Text>
+				<Text>LoginPage</Text>
 			</View>
 		);
 	}

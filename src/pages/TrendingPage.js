@@ -7,8 +7,10 @@ import {
 	Text,
 	Button,
 } from 'react-native';
+import { connect } from 'react-redux';
+import actions from '../actions'
 
-export default class TrendingPage extends Component {
+class TrendingPage extends Component {
 	render(){
 		return (
 			<View style={styles.container}>
@@ -16,18 +18,22 @@ export default class TrendingPage extends Component {
 				<Button 
 					title="改变主题色"
 					onPress={()=>{
-						this.props.navigation.setParams({
-							theme:{
-								tintColor:'red',
-								update: new Date().getTime()
-							}
-						})
+						this.props.onThemeChange('red')
 					}}
 				/>
 			</View>
 		);
 	}
 }
+const mapStateToProps = state => {
+	return ({
+		theme: state.themeReducer.theme
+	})
+}
+const mapDispatchToProps = dispatch => ({
+	onThemeChange: theme => dispatch(actions.onThemeChange(theme))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingPage)
 const styles = StyleSheet.create({
 	container:{
 		flex:1,
