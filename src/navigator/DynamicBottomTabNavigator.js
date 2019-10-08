@@ -55,7 +55,6 @@ const DynamicTabNavigator = () => {
 			activeTintColor:'green'
 		},
 		tabBarComponent: props => {
-			console.log('tabBarComponent',props)
 			return (   //自定义底部导航
 				<TabBarComponentCon
 					{...props}
@@ -80,7 +79,6 @@ class TabBarComponent extends Component{
 	}
 }
 const mapStateToProps = state => {
-	console.log('state',state)
 	return ({
 		theme: state.themeReducer.theme
 	})

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 import themeReducer from './theme'
-import { rootCom, switchNavigator} from '../navigator/AppNavigator'
+import { rootCom, switchNavigator} from '../navigator/appNavigator'
 
 // 指定默认state
 const navState = switchNavigator.router.getStateForAction(switchNavigator.router.getActionForPathAndParams(rootCom))

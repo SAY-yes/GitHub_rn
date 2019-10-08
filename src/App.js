@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {Provider} from 'react-redux'
-import AppNavigator from './navigator/AppNavigator'
+import AppNavigator from './navigator/appNavigator'
 import store from './store'
 export default App = () => {
   return (
