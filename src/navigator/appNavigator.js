@@ -12,7 +12,7 @@ import {
 import {connect} from 'react-redux'
 import { createReactNavigationReduxMiddleware, createReduxContainer} from 'react-navigation-redux-helpers'
 import WelcomePage from '../pages/WelcomePage'
-// import HomePage from '../pages/HomePage'
+import HomePage from '../pages/HomePage'
 import DynamicBottomTabNavigator from './DynamicBottomTabNavigator'
 import DetailPage from '../pages/DetailPage'
 
@@ -27,7 +27,7 @@ const InitNavigator = createStackNavigator({
 
 const MainNavigator = createStackNavigator({
 	HomePage: {
-		screen: DynamicBottomTabNavigator(),
+		screen: HomePage,
 		navigationOptions: {
 			header: null
 		}
