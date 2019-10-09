@@ -6,13 +6,31 @@ import {
 	ScrollView,
 	View,
 	Text,
-	StatusBar,
+	BackHandler,
 } from 'react-native';
 import NavigatorUtil from '../navigator/NavigatorUtil'
+import {connect} from 'react-redux'
+import { NavigationActions} from 'react-navigation'
 class PopularTab extends Component {
 	constructor(props){
 		super(props);
 	}
+	componentDidMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
+	}
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
+	}
+	onBackPress = () => {
+		const { navigation: { dispatch }, nav } = this.props
+		if (nav.routes[1].index === 0) {
+			return false
+		}
+		dispatch(NavigationActions.back())
+		return true
+	}
+
+
 	render(){
 		return (
 			<View style={styles.container}>
@@ -22,6 +40,14 @@ class PopularTab extends Component {
 		);
 	}
 }
+const mapStateToProps = state => ({
+	nav: state.nav
+})
+const mapDispatchToProps = dispatch => ({
+
+})
+const PopularTabCon = connect(mapStateToProps, mapDispatchToProps)(PopularTab)
+
 
 export default PopularPage  = (props) => {
 	const tabNames = ['Java', 'Android', 'IOS', 'React', 'ReactNative', 'PHP']
@@ -29,7 +55,7 @@ export default PopularPage  = (props) => {
 		const tabs = {}
 		tabNames.forEach((ele,index) => {
 			tabs[`tab${index}`] = {
-				screen: (props) => <PopularTab {...props} tabLabel={ele}/>,
+				screen: (props) => <PopularTabCon {...props} tabLabel={ele}/>,
 				navigationOptions:{
 					title:ele
 				}
